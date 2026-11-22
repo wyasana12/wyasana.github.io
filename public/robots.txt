@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wyasana12.github.io/sitemap.xml
+
