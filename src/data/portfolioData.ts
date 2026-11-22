@@ -1,3 +1,6 @@
+import avatarImg from '../assets/avatar.png';
+import logoImg from '../assets/logo.png';
+
 export type Language = 'id' | 'en';
 
 export interface Experience {
@@ -47,8 +50,8 @@ export const PERSONAL_INFO = {
     en: "Hi, I am"
   },
   name: "Wyasana Aji Kusuma Wardana",
-  avatarUrl: "./avatar.png",
-  logoUrl: "./logo.png",
+  avatarUrl: avatarImg,
+  logoUrl: logoImg,
   title: {
     id: "Backend Developer, Data Engineer, & BI Analyst.",
     en: "Backend Developer, Data Engineer, & BI Analyst."
@@ -86,7 +89,7 @@ export const CV_DATA: CVItem[] = [
       en: "Focused on REST API architecture, Clean Architecture, Go, Laravel, database design, & backend performance tuning."
     },
     fileName: "CV_Backend Developer_Wyasana Aji Kusuma Wardana.pdf",
-    url: "./CV_Backend%20Developer_Wyasana%20Aji%20Kusuma%20Wardana.pdf"
+    url: `${import.meta.env.BASE_URL}CV_Backend%20Developer_Wyasana%20Aji%20Kusuma%20Wardana.pdf`
   },
   {
     id: "data-bi",
@@ -100,7 +103,7 @@ export const CV_DATA: CVItem[] = [
       en: "Focused on ETL/ELT pipelines, Data Warehousing (Star Schema), SQL query tuning, Power BI, DAX, & global logistics analytics."
     },
     fileName: "CV_Data engineer & Bussiness Intelligence_Wyasana Aji Kusuma Wardana.pdf",
-    url: "./CV_Data%20engineer%20&%20Bussiness%20Intelligence_Wyasana%20Aji%20Kusuma%20Wardana.pdf"
+    url: `${import.meta.env.BASE_URL}CV_Data%20engineer%20&%20Bussiness%20Intelligence_Wyasana%20Aji%20Kusuma%20Wardana.pdf`
   }
 ];
 

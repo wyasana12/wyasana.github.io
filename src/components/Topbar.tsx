@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { Language } from '../data/portfolioData';
 import { SunIcon, MoonIcon, MonitorIcon } from './Icons';
+import logoImg from '../assets/logo.png';
 
 export type ThemeMode = 'dark' | 'light' | 'system';
 
@@ -51,7 +52,7 @@ export const Topbar: React.FC<TopbarProps> = ({
         {/* Website Brand Logo (static element, not a button) */}
         <div className="topbar-brand" aria-label="Logo Wyasana Aji Kusuma Wardana">
           <img
-            src="./logo.png"
+            src={logoImg}
             alt="Logo Wyasana"
             className="topbar-logo-img"
           />
