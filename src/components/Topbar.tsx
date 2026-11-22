@@ -51,7 +51,7 @@ export const Topbar: React.FC<TopbarProps> = ({
         {/* Website Brand Logo (static element, not a button) */}
         <div className="topbar-brand" aria-label="Logo Wyasana Aji Kusuma Wardana">
           <img
-            src="/logo.png"
+            src="./logo.png"
             alt="Logo Wyasana"
             className="topbar-logo-img"
           />
