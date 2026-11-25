@@ -8,7 +8,6 @@ export interface Experience {
   period: string;
   role: { id: string; en: string };
   company: string;
-  companyUrl: string;
   description: { id: string; en: string };
   achievements: { id: string[]; en: string[] };
   skills: string[];
@@ -167,7 +166,6 @@ export const EXPERIENCES: Experience[] = [
       en: "Data Engineer & Business Intelligence Analyst (Intern to Contract)"
     },
     company: "Datasea",
-    companyUrl: "https://example.com",
     description: {
       id: "Mengembangkan, mengelola, dan mengoptimalkan ekosistem data serta pelaporan analitik untuk divisi Global Logistics di Kraft Heinz, dengan cakupan operasional di wilayah ekonomi EMEA, LATAM, dan ANZ.",
       en: "Developing, managing, and optimizing the data ecosystem and analytical reporting for the Global Logistics division at Kraft Heinz, covering operational scopes across EMEA, LATAM, and ANZ economic regions."
@@ -198,7 +196,6 @@ export const EXPERIENCES: Experience[] = [
       en: "Backend Developer (Intern)"
     },
     company: "Datasea",
-    companyUrl: "https://example.com",
     description: {
       id: "Mengembangkan sistem E-Procurement terintegrasi untuk Arya Noble dan 7 Events yang menangani alur pengadaan barang secara menyeluruh (end-to-end), mulai dari pengajuan pembelian (purchase request), penerimaan barang (good receipt), pemrosesan invoice, hingga sinkronisasi data ke sistem SAP.",
       en: "Developed an integrated E-Procurement system for Arya Noble and 7 Events managing the end-to-end procurement lifecycle, from purchase requests and goods receipts to invoice processing and SAP data synchronization."
@@ -223,7 +220,6 @@ export const EXPERIENCES: Experience[] = [
       en: "Web Developer (Contract)"
     },
     company: "Neo Edukasi",
-    companyUrl: "https://example.com",
     description: {
       id: "Mengembangkan dan memelihara platform manajemen bimbingan belajar (bimbel) serta sistem ujian Try Out daring internal perusahaan untuk mendukung operasional akademik dan evaluasi siswa.",
       en: "Developed and maintained the tutoring management platform and internal online Try Out examination system supporting academic operations and student evaluations."
@@ -250,7 +246,6 @@ export const EXPERIENCES: Experience[] = [
       en: "Web Developer (Intern)"
     },
     company: "PT Edukarir Global Nusantara",
-    companyUrl: "https://example.com",
     description: {
       id: "Mengelola pemeliharaan dan peningkatan fungsionalitas pada sistem internal perusahaan, meliputi platform Learning Management System (Moodle) dan Human Resource Management (OrangeHRM).",
       en: "Managed maintenance and feature enhancements across internal enterprise platforms, including Moodle Learning Management System (LMS) and OrangeHRM Human Resource Management."
@@ -275,7 +270,6 @@ export const EXPERIENCES: Experience[] = [
       en: "Backend Developer (Intern)"
     },
     company: "Diskominfo Kabupaten Karanganyar",
-    companyUrl: "https://example.com",
     description: {
       id: "Mengembangkan aplikasi web Sistem Manajemen Laboratorium Karanganyar (SiLaNyar) untuk Dinas Lingkungan Hidup (DLH) Kabupaten Karanganyar guna mendigitalisasi layanan pengajuan uji sampel, penjadwalan pengujian, manajemen pembayaran, hingga penerbitan laporan hasil uji (LHU).",
       en: "Developed the SiLaNyar Laboratory Management System web application for the Environmental Agency (DLH) of Karanganyar Regency to digitalize sample testing requests, scheduling, payment management, and test result report issuance (LHU)."

@@ -32,23 +32,9 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) =>
             {/* Details */}
             <div className="card-details">
               <h3 className="card-title">
-                <a
-                  href={exp.companyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                  }}
-                  aria-label={`${exp.role[lang]} at ${exp.company} (opens in a new tab)`}
-                >
-                  <span>
-                    {exp.role[lang]} · <span style={{ color: 'var(--color-accent)' }}>{exp.company}</span>
-                  </span>
-                  <ArrowUpRightIcon className="external-icon" size={16} />
-                </a>
+                <span>
+                  {exp.role[lang]} · <span style={{ color: 'var(--color-accent)' }}>{exp.company}</span>
+                </span>
               </h3>
 
               <p className="card-desc">{exp.description[lang]}</p>
