@@ -8,6 +8,7 @@ import { AboutSection } from './components/AboutSection';
 import { SkillsSection } from './components/SkillsSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { ProjectsSection } from './components/ProjectsSection';
+import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { LoadingScreen } from './components/LoadingScreen';
 
@@ -56,16 +57,16 @@ export function App() {
     localStorage.setItem('portfolio_lang', newLang);
   };
 
-  // Scrollspy tracking: about, skills, experience, projects
+  // Scrollspy tracking: about, skills, experience, projects, contact
   useEffect(() => {
     const handleScroll = () => {
-      // If near page bottom, activate the last section (projects)
+      // If near page bottom, activate the last section (contact)
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
-        setActiveSection('projects');
+        setActiveSection('contact');
         return;
       }
 
-      const sections = ['about', 'skills', 'experience', 'projects'];
+      const sections = ['about', 'skills', 'experience', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 180;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -106,6 +107,7 @@ export function App() {
           <SkillsSection lang={lang} />
           <ExperienceSection lang={lang} />
           <ProjectsSection lang={lang} />
+          <ContactSection lang={lang} />
           <Footer lang={lang} />
         </main>
       </div>

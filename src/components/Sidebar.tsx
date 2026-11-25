@@ -79,12 +79,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
     }
   }, []);
 
-  // Nav menu: Tentang Saya, Keahlian, Pengalaman, Proyek
+  // Nav menu: Tentang Saya, Keahlian, Pengalaman, Proyek, Kontak
   const navItems = [
     { id: 'about', label: strings.navAbout },
     { id: 'skills', label: strings.navSkills },
     { id: 'experience', label: strings.navExperience },
     { id: 'projects', label: strings.navProjects },
+    { id: 'contact', label: strings.navContact },
   ];
 
   const renderSocialIcon = (iconName: string) => {
