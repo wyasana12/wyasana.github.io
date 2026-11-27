@@ -45,9 +45,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
 
   return (
     <section id="projects" className="section" aria-label={strings.sectionProjects}>
-      {/* Mobile Sticky Header */}
-      <div className="section-sticky-header">
-        <h2>{strings.sectionProjects}</h2>
+      {/* Mobile Sticky Header (visual mirror; semantic <h2> lives in .section-header) */}
+      <div className="section-sticky-header" aria-hidden="true">
+        <span className="section-sticky-title">{strings.sectionProjects}</span>
       </div>
 
       {/* Main Section Header */}
@@ -56,13 +56,17 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
         <div className="section-header-line" />
       </div>
 
-      {/* Filter Tabs */}
-      <div className="category-filter-bar" role="tablist" aria-label="Filter projects by discipline">
+      {/* Filter Buttons */}
+      <div
+        className="category-filter-bar"
+        role="group"
+        aria-label={lang === 'id' ? 'Filter proyek berdasarkan bidang' : 'Filter projects by discipline'}
+      >
         {categories.map((cat) => (
           <button
             key={cat.key}
-            role="tab"
-            aria-selected={selectedCategory === cat.key}
+            type="button"
+            aria-pressed={selectedCategory === cat.key}
             className={`category-filter-btn ${selectedCategory === cat.key ? 'active' : ''}`}
             onClick={() => setSelectedCategory(cat.key)}
           >
@@ -92,8 +96,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
               color: 'var(--color-accent)',
               marginBottom: '1rem',
             }}
+            aria-hidden="true"
           >
-            <DatabaseIcon size={28} />
+            <DatabaseIcon size={28} aria-hidden="true" />
           </div>
           <h3
             style={{
@@ -124,9 +129,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
       ) : (
         <div className="card-group">
           {filteredProjects.map((project) => (
-            <div key={project.id} className="card-item">
+            <article key={project.id} className="card-item">
               {/* Left Box: Graphic / Mockup Preview */}
-              <div className="project-card-image-box">
+              <div className="project-card-image-box" aria-hidden="true">
                 <div className="project-preview-mockup">
                   <div className="mockup-header-dots">
                     <span className="mockup-dot red" />
@@ -170,10 +175,14 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                       display: 'inline-flex',
                       alignItems: 'center',
                     }}
-                    aria-label={`${project.title} (opens in a new tab)`}
+                    aria-label={
+                      lang === 'id'
+                        ? `${project.title} (buka di tab baru)`
+                        : `${project.title} (opens in a new tab)`
+                    }
                   >
                     <span>{project.title}</span>
-                    <ArrowUpRightIcon className="external-icon" size={16} />
+                    <ArrowUpRightIcon className="external-icon" size={16} aria-hidden="true" />
                   </a>
                 </h3>
 
@@ -181,7 +190,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
 
                 {project.metrics && (
                   <div className="metrics-pill">
-                    <ActivityIcon size={12} />
+                    <ActivityIcon size={12} aria-hidden="true" />
                     <span>{project.metrics}</span>
                   </div>
                 )}
@@ -215,7 +224,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                         transition: 'color 0.2s',
                       }}
                     >
-                      <GithubIcon size={14} />
+                      <GithubIcon size={14} aria-hidden="true" />
                       <span>{strings.sourceCode}</span>
                     </a>
                   )}
@@ -234,14 +243,17 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                         transition: 'color 0.2s',
                       }}
                     >
-                      <ExternalLinkIcon size={14} />
+                      <ExternalLinkIcon size={14} aria-hidden="true" />
                       <span>{strings.liveDemo}</span>
                     </a>
                   )}
                 </div>
 
                 {/* Skills Badges */}
-                <div className="skills-list" aria-label="Technologies used in project">
+                <div
+                  className="skills-list"
+                  aria-label={lang === 'id' ? 'Teknologi yang digunakan' : 'Technologies used in project'}
+                >
                   {project.skills.map((skill) => (
                     <span key={skill} className="skill-tag">
                       {skill}
@@ -249,7 +261,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                   ))}
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       )}

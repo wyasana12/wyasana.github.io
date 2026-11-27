@@ -12,9 +12,9 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) =>
 
   return (
     <section id="experience" className="section" aria-label={strings.sectionExperience}>
-      {/* Mobile Sticky Header */}
-      <div className="section-sticky-header">
-        <h2>{strings.sectionExperience}</h2>
+      {/* Mobile Sticky Header (visual mirror; semantic <h2> lives in .section-header) */}
+      <div className="section-sticky-header" aria-hidden="true">
+        <span className="section-sticky-title">{strings.sectionExperience}</span>
       </div>
 
       {/* Main Section Header */}
@@ -25,9 +25,9 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) =>
 
       <div className="card-group">
         {EXPERIENCES.map((exp) => (
-          <div key={exp.id} className="card-item">
+          <article key={exp.id} className="card-item">
             {/* Period on desktop left column */}
-            <div className="card-period">{exp.period}</div>
+            <div className="card-period">{exp.period[lang]}</div>
 
             {/* Details */}
             <div className="card-details">
@@ -49,7 +49,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) =>
                 </ul>
               )}
             </div>
-          </div>
+          </article>
         ))}
       </div>
 
@@ -70,14 +70,13 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) =>
               target="_blank"
               rel="noopener noreferrer"
               className={`resume-card-item ${cv.id === 'data-bi' ? 'resume-card-data' : 'resume-card-backend'}`}
-              aria-label={`${cv.role[lang]} (opens PDF in a new tab)`}
             >
               <div className="resume-card-top">
-                <div className="resume-card-icon-box">
-                  <FileTextIcon size={20} />
+                <div className="resume-card-icon-box" aria-hidden="true">
+                  <FileTextIcon size={20} aria-hidden="true" />
                 </div>
                 <span className="resume-card-badge">{cv.category}</span>
-                <ArrowUpRightIcon size={16} className="resume-card-arrow" />
+                <ArrowUpRightIcon size={16} className="resume-card-arrow" aria-hidden="true" />
               </div>
 
               <h4 className="resume-card-title">{cv.role[lang]}</h4>
@@ -86,7 +85,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) =>
               <div className="resume-card-footer">
                 <span className="resume-card-action">
                   <span>{strings.downloadPdf}</span>
-                  <ArrowRightIcon size={14} className="arrow-icon" />
+                  <ArrowRightIcon size={14} className="arrow-icon" aria-hidden="true" />
                 </span>
               </div>
             </a>

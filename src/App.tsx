@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Language } from './data/portfolioData';
+import { SEO_META } from './data/portfolioData';
 import type { ThemeMode } from './components/Topbar';
 import { Topbar } from './components/Topbar';
 import { Spotlight } from './components/Spotlight';
@@ -51,15 +52,29 @@ export function App() {
     }
   }, [theme]);
 
+  // Sync document language & SEO metadata when language changes
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    const meta = SEO_META[lang];
+    document.title = meta.title;
+    const descEl = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    if (descEl) {
+      descEl.content = meta.description;
+    }
+  }, [lang]);
+
   // Handle Language
   const handleLanguageChange = (newLang: Language) => {
     setLang(newLang);
     localStorage.setItem('portfolio_lang', newLang);
   };
 
-  // Scrollspy tracking: about, skills, experience, projects, contact
+  // Scrollspy tracking: about, skills, experience, projects, contact (rAF-throttled)
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId = 0;
+
+    const updateActiveSection = () => {
+      rafId = 0;
       // If near page bottom, activate the last section (contact)
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
         setActiveSection('contact');
@@ -82,16 +97,26 @@ export function App() {
       }
     };
 
+    const handleScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(updateActiveSection);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    updateActiveSection();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
     };
   }, []);
 
   return (
     <>
+      <a href="#content" className="skip-to-content visually-hidden">
+        {lang === 'id' ? 'Langsung ke konten utama' : 'Skip to main content'}
+      </a>
       <LoadingScreen />
       <Topbar
         lang={lang}

@@ -13,20 +13,20 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ lang }) => {
   const getPillarIcon = (icon: string) => {
     switch (icon) {
       case 'server':
-        return <ServerIcon size={19} color="var(--color-accent)" />;
+        return <ServerIcon size={19} color="var(--color-accent)" aria-hidden="true" />;
       case 'database':
-        return <DatabaseIcon size={19} color="var(--color-accent-data)" />;
+        return <DatabaseIcon size={19} color="var(--color-accent-data)" aria-hidden="true" />;
       case 'bar-chart':
       default:
-        return <BarChartIcon size={19} color="var(--color-accent-data)" />;
+        return <BarChartIcon size={19} color="var(--color-accent-data)" aria-hidden="true" />;
     }
   };
 
   return (
     <section id="skills" className="section" aria-label={strings.sectionSkills}>
-      {/* Mobile Sticky Header */}
-      <div className="section-sticky-header">
-        <h2>{strings.sectionSkills}</h2>
+      {/* Mobile Sticky Header (visual mirror; semantic <h2> lives in .section-header) */}
+      <div className="section-sticky-header" aria-hidden="true">
+        <span className="section-sticky-title">{strings.sectionSkills}</span>
       </div>
 
       {/* Main Section Header */}
@@ -37,10 +37,10 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ lang }) => {
 
       <div className="skills-matrix-grid">
         {SKILL_PILLARS.map((pillar) => (
-          <div key={pillar.title.en} className="pillar-card">
+          <article key={pillar.title.en} className="pillar-card">
             <div className="pillar-header">
               {getPillarIcon(pillar.icon)}
-              <span>{pillar.title[lang]}</span>
+              <h3 className="pillar-title">{pillar.title[lang]}</h3>
             </div>
             <p className="pillar-desc">{pillar.description[lang]}</p>
             
@@ -67,7 +67,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ lang }) => {
                 ))}
               </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

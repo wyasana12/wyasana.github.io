@@ -4,45 +4,68 @@ interface LoadingScreenProps {
   onLoaded?: () => void;
 }
 
+const CRAWLER_UA_PATTERN =
+  /bot|crawl|spider|slurp|lighthouse|pagespeed|facebookexternalhit|twitterbot|linkedinbot|whatsapp|google-inspectiontool/i;
+
+function shouldSkipPreloader(): boolean {
+  if (typeof window === 'undefined') return true;
+  if (navigator.webdriver || CRAWLER_UA_PATTERN.test(navigator.userAgent)) return true;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
+  try {
+    if (sessionStorage.getItem('portfolio_preloaded') === '1') return true;
+  } catch {
+    // Ignore storage access errors in restricted contexts
+  }
+  return false;
+}
+
 export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoaded }) => {
-  const [progress, setProgress] = useState(0);
-  const [isFading, setIsFading] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState<boolean>(() => shouldSkipPreloader());
+  const [progress, setProgress] = useState<number>(0);
+  const [isFading, setIsFading] = useState<boolean>(false);
 
   useEffect(() => {
-    // Smooth progress animation over ~1.1 seconds
-    const interval = setInterval(() => {
+    if (isHidden) {
+      if (onLoaded) onLoaded();
+      return;
+    }
+
+    // Fast, non-intrusive intro (~360ms) to preserve Core Web Vitals (LCP)
+    const interval = window.setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
-          clearInterval(interval);
+          window.clearInterval(interval);
           return 100;
         }
-        const remaining = 100 - prev;
-        const jump = Math.max(3, Math.floor(remaining * 0.2));
-        return Math.min(100, prev + jump);
+        return Math.min(100, prev + 20);
       });
-    }, 40);
+    }, 35);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => window.clearInterval(interval);
+  }, [isHidden, onLoaded]);
 
   useEffect(() => {
-    if (progress === 100) {
-      const fadeTimeout = setTimeout(() => {
-        setIsFading(true);
-      }, 200);
+    if (isHidden || progress < 100) return;
 
-      const hideTimeout = setTimeout(() => {
-        setIsHidden(true);
-        if (onLoaded) onLoaded();
-      }, 700);
+    const fadeTimeout = window.setTimeout(() => {
+      setIsFading(true);
+    }, 60);
 
-      return () => {
-        clearTimeout(fadeTimeout);
-        clearTimeout(hideTimeout);
-      };
-    }
-  }, [progress, onLoaded]);
+    const hideTimeout = window.setTimeout(() => {
+      setIsHidden(true);
+      try {
+        sessionStorage.setItem('portfolio_preloaded', '1');
+      } catch {
+        // Ignore storage errors
+      }
+      if (onLoaded) onLoaded();
+    }, 320);
+
+    return () => {
+      window.clearTimeout(fadeTimeout);
+      window.clearTimeout(hideTimeout);
+    };
+  }, [isHidden, progress, onLoaded]);
 
   if (isHidden) return null;
 
@@ -52,10 +75,10 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoaded }) => {
       aria-hidden="true"
     >
       <div className="preloader-content">
-        {/* Name Title */}
-        <h1 className="preloader-name">
+        {/* Name Title (uses <p> so the document keeps strictly one semantic <h1>) */}
+        <p className="preloader-name">
           Wyasana Aji Kusuma Wardana
-        </h1>
+        </p>
 
         {/* Minimalist Loading Bar */}
         <div className="preloader-loading-track">

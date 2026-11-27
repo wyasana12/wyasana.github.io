@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://wyasana12.github.io/</loc>
-    <lastmod>2026-11-22</lastmod>
+    <loc>https://wyasana.xyz/</loc>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://wyasana.xyz/og-image.jpg</image:loc>
+      <image:title>Wyasana Aji Kusuma Wardana — Portfolio</image:title>
+      <image:caption>Portofolio Wyasana Aji Kusuma Wardana — Backend Developer, Data Engineer, &amp; Business Intelligence Analyst</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://wyasana.xyz/avatar.jpg</image:loc>
+      <image:title>Wyasana Aji Kusuma Wardana</image:title>
+      <image:caption>Foto profil Wyasana Aji Kusuma Wardana — Backend Developer, Data Engineer, &amp; Business Intelligence Analyst</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://wyasana.xyz/logo.png</image:loc>
+      <image:title>Logo Wyasana Aji Kusuma Wardana</image:title>
+    </image:image>
   </url>
 </urlset>
-

@@ -27,7 +27,7 @@
   
   --color-text-primary: #F3F4F6;    /* Crisp Off-White */
   --color-text-secondary: #9CA3AF;  /* Muted Cool Gray */
-  --color-text-muted: #6B7280;
+  --color-text-muted: #8E98A8;      /* Accessible Muted Slate (WCAG AA >= 4.5:1) */
   
   /* Aksen Utama (Backend & Architecture): Electric Cyan */
   --color-accent: #38BDF8;
@@ -76,15 +76,15 @@
   --color-accent-bg: rgba(30, 64, 175, 0.08);
   --color-accent-border: rgba(30, 64, 175, 0.22);
 
-  /* Aksen Data & BI: Data Teal */
-  --color-accent-data: #0D9488;
-  --color-accent-data-hover: #0F766E;
+  /* Aksen Data & BI: Data Teal (WCAG AA >= 4.5:1 on white) */
+  --color-accent-data: #0F766E;
+  --color-accent-data-hover: #115E59;
   --color-accent-data-bg: rgba(13, 148, 136, 0.08);
   --color-accent-data-border: rgba(13, 148, 136, 0.22);
 
-  /* Aksen Highlight: Warm Ochre */
-  --color-accent-highlight: #D97706;
-  --color-accent-highlight-hover: #B45309;
+  /* Aksen Highlight: Warm Ochre (WCAG AA >= 4.5:1 on white) */
+  --color-accent-highlight: #B45309;
+  --color-accent-highlight-hover: #92400E;
   --color-accent-highlight-bg: rgba(217, 119, 6, 0.1);
   --color-accent-highlight-border: rgba(217, 119, 6, 0.25);
   
@@ -831,7 +831,9 @@ body {
   }
 }
 
-.section-sticky-header h2 {
+.section-sticky-header h2,
+.section-sticky-header .section-sticky-title {
+  display: block;
   font-size: 0.825rem;
   font-weight: 700;
   font-family: var(--font-mono);
@@ -841,17 +843,31 @@ body {
   margin: 0;
 }
 
-/* Desktop Section Header (Hidden on Mobile/Tablet to avoid duplicate headers) */
+/* Desktop Section Header (Visually hidden on Mobile/Tablet so one semantic <h2> stays in the DOM) */
 .section-header {
-  display: none;
+  position: absolute;
+  clip-path: inset(50%);
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
 }
 
 @media (min-width: 1024px) {
   .section-header {
+    position: static;
+    clip-path: none;
+    overflow: visible;
+    width: auto;
+    height: auto;
+    margin: 0 0 1.5rem 0;
+    white-space: normal;
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1.5rem;
   }
 }
 
@@ -1161,6 +1177,13 @@ body {
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+}
+
+.pillar-title {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  margin: 0;
 }
 
 .pillar-desc {
@@ -1687,6 +1710,27 @@ dialog.avatar-modal[open] {
   white-space: nowrap !important;
 }
 
+.skip-to-content:focus {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--color-accent);
+  color: #090E1A;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+[data-theme="light"] .skip-to-content:focus {
+  color: #FFFFFF;
+}
+
 .contact-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -1793,7 +1837,7 @@ dialog.avatar-modal[open] {
 }
 
 [data-theme="light"] .contact-error-msg {
-  color: #DC2626;
+  color: #B91C1C;
 }
 
 .contact-error-icon {
@@ -1846,7 +1890,7 @@ dialog.avatar-modal[open] {
 [data-theme="light"] .contact-status-banner.is-error {
   background: #FEF2F2;
   border-color: #FECACA;
-  color: #DC2626;
+  color: #B91C1C;
 }
 
 .contact-status-icon {

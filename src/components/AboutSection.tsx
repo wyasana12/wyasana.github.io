@@ -11,9 +11,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
 
   return (
     <section id="about" className="section" aria-label={strings.sectionAbout}>
-      {/* Mobile Sticky Header */}
-      <div className="section-sticky-header">
-        <h2>{strings.sectionAbout}</h2>
+      {/* Mobile Sticky Header (visual mirror; semantic <h2> lives in .section-header) */}
+      <div className="section-sticky-header" aria-hidden="true">
+        <span className="section-sticky-title">{strings.sectionAbout}</span>
       </div>
 
       {/* Main Section Header */}

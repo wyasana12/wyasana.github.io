@@ -1,5 +1,4 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
 import type { Language } from '../data/portfolioData';
 import { EMAILJS_CONFIG, UI_STRINGS } from '../data/portfolioData';
 import { AlertCircleIcon, CheckCircleIcon, SendIcon } from './Icons';
@@ -185,6 +184,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
     setStatusMessage('');
 
     try {
+      // Dynamic import keeps @emailjs/browser out of the initial JS bundle
+      const { default: emailjs } = await import('@emailjs/browser');
       await emailjs.send(
         serviceId,
         templateId,
@@ -214,9 +215,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
 
   return (
     <section id="contact" className="section" aria-label={strings.sectionContact}>
-      {/* Mobile Sticky Header */}
-      <div className="section-sticky-header">
-        <h2>{strings.sectionContact}</h2>
+      {/* Mobile Sticky Header (visual mirror; semantic <h2> lives in .section-header) */}
+      <div className="section-sticky-header" aria-hidden="true">
+        <span className="section-sticky-title">{strings.sectionContact}</span>
       </div>
 
       {/* Main Section Header */}

@@ -1,11 +1,21 @@
-import avatarImg from '../assets/avatar.png';
-import logoImg from '../assets/logo.png';
-
 export type Language = 'id' | 'en';
+
+export const SEO_META: Record<Language, { title: string; description: string }> = {
+  id: {
+    title: 'Wyasana Aji Kusuma Wardana | Backend, Data & BI Portfolio',
+    description:
+      'Portofolio Wyasana Aji Kusuma Wardana — Backend Developer, Data Engineer, & BI Analyst di Datasea. Spesialis Golang, Laravel, SQL, Snowflake, dan Power BI.',
+  },
+  en: {
+    title: 'Wyasana Aji Kusuma Wardana | Backend, Data & BI Portfolio',
+    description:
+      'Portfolio of Wyasana Aji Kusuma Wardana — Backend Developer, Data Engineer, & BI Analyst at Datasea. Specializing in Golang, Laravel, SQL, Snowflake, & Power BI.',
+  },
+};
 
 export interface Experience {
   id: string;
-  period: string;
+  period: { id: string; en: string };
   role: { id: string; en: string };
   company: string;
   description: { id: string; en: string };
@@ -49,8 +59,9 @@ export const PERSONAL_INFO = {
     en: "Hi, I am"
   },
   name: "Wyasana Aji Kusuma Wardana",
-  avatarUrl: avatarImg,
-  logoUrl: logoImg,
+  avatarUrl: `${import.meta.env.BASE_URL}avatar-400.jpg`,
+  avatarLargeUrl: `${import.meta.env.BASE_URL}avatar.jpg`,
+  logoUrl: `${import.meta.env.BASE_URL}logo.png`,
   title: {
     id: "Backend Developer, Data Engineer, & BI Analyst.",
     en: "Backend Developer, Data Engineer, & BI Analyst."
@@ -212,7 +223,10 @@ export const UI_STRINGS = {
 export const EXPERIENCES: Experience[] = [
   {
     id: "exp-1",
-    period: "Maret 2026 – Sekarang",
+    period: {
+      id: "Maret 2026 – Sekarang",
+      en: "March 2026 – Present"
+    },
     role: {
       id: "Data Engineer & Business Intelligence Analyst (Intern to Contract)",
       en: "Data Engineer & Business Intelligence Analyst (Intern to Contract)"
@@ -242,7 +256,10 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     id: "exp-2",
-    period: "Februari 2026 – Maret 2026",
+    period: {
+      id: "Februari 2026 – Maret 2026",
+      en: "February 2026 – March 2026"
+    },
     role: {
       id: "Backend Developer (Intern)",
       en: "Backend Developer (Intern)"
@@ -266,7 +283,10 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     id: "exp-3",
-    period: "November 2025 – Februari 2026",
+    period: {
+      id: "November 2025 – Februari 2026",
+      en: "November 2025 – February 2026"
+    },
     role: {
       id: "Web Developer (Contract)",
       en: "Web Developer (Contract)"
@@ -292,7 +312,10 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     id: "exp-4",
-    period: "Juli 2025 – Oktober 2025",
+    period: {
+      id: "Juli 2025 – Oktober 2025",
+      en: "July 2025 – October 2025"
+    },
     role: {
       id: "Web Developer (Intern)",
       en: "Web Developer (Intern)"
@@ -316,7 +339,10 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     id: "exp-5",
-    period: "Januari 2025 – Juli 2025",
+    period: {
+      id: "Januari 2025 – Juli 2025",
+      en: "January 2025 – July 2025"
+    },
     role: {
       id: "Backend Developer (Intern)",
       en: "Backend Developer (Intern)"

@@ -91,16 +91,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
   const renderSocialIcon = (iconName: string) => {
     switch (iconName) {
       case 'github':
-        return <GithubIcon size={19} />;
+        return <GithubIcon size={19} aria-hidden="true" />;
       case 'linkedin':
-        return <LinkedinIcon size={19} />;
+        return <LinkedinIcon size={19} aria-hidden="true" />;
       case 'instagram':
-        return <InstagramIcon size={19} />;
+        return <InstagramIcon size={19} aria-hidden="true" />;
       case 'mail':
-        return <MailIcon size={19} />;
+        return <MailIcon size={19} aria-hidden="true" />;
       case 'file-text':
       default:
-        return <FileTextIcon size={19} />;
+        return <FileTextIcon size={19} aria-hidden="true" />;
     }
   };
 
@@ -130,7 +130,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
             >
               <img
                 src={PERSONAL_INFO.avatarUrl}
-                alt={PERSONAL_INFO.name}
+                srcSet={`${PERSONAL_INFO.avatarUrl} 400w, ${PERSONAL_INFO.avatarLargeUrl} 800w`}
+                sizes="(max-width: 639px) 155px, (max-width: 1023px) 175px, 195px"
+                alt={`${PERSONAL_INFO.name} — ${PERSONAL_INFO.title[lang]}`}
+                width={195}
+                height={195}
+                fetchPriority="high"
+                decoding="async"
                 className="profile-avatar-img"
               />
               <span className="avatar-zoom-overlay" aria-hidden="true">
@@ -140,13 +146,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
             <div className="profile-info-col">
               <span className="profile-greeting">{PERSONAL_INFO.greeting[lang]}</span>
               <h1 className="profile-name">
-                <a href="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+                <a href="./" style={{ color: 'inherit', textDecoration: 'none' }}>
                   {PERSONAL_INFO.name}
                 </a>
               </h1>
-              <h2 className="profile-role">{PERSONAL_INFO.title[lang]}</h2>
+              <p className="profile-role">{PERSONAL_INFO.title[lang]}</p>
               <div className="current-focus-badge">
-                <span className="pulse-dot" />
+                <span className="pulse-dot" aria-hidden="true" />
                 <span>{strings.activeRoleBadge}</span>
               </div>
             </div>
@@ -166,8 +172,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
                       href={`#${item.id}`}
                       onClick={(e) => handleNavClick(e, item.id)}
                       className={`nav-link ${isActive ? 'active' : ''}`}
+                      aria-current={isActive ? 'location' : undefined}
                     >
-                      <span className="nav-indicator" />
+                      <span className="nav-indicator" aria-hidden="true" />
                       <span className="nav-text">{item.label}</span>
                     </a>
                   </li>
@@ -189,7 +196,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
                     className={`cv-trigger-btn ${isCvMenuOpen ? 'active' : ''}`}
                     aria-label={`${social.name} - ${strings.cvDropdownTitle}`}
                     aria-expanded={isCvMenuOpen}
-                    aria-haspopup="true"
+                    aria-controls="sidebar-cv-dropdown"
                     title={`${social.name} (${strings.cvDropdownTitle})`}
                   >
                     {renderSocialIcon(social.icon)}
@@ -197,8 +204,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
 
                   {isCvMenuOpen && (
                     <div
+                      id="sidebar-cv-dropdown"
                       className="cv-dropdown-menu"
-                      role="menu"
                       aria-label={strings.cvDropdownTitle}
                     >
                       <div className="cv-dropdown-header">
@@ -211,18 +218,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
                           target="_blank"
                           rel="noopener noreferrer"
                           className="cv-dropdown-item"
-                          role="menuitem"
                           onClick={() => setIsCvMenuOpen(false)}
                         >
                           <FileTextIcon
                             size={16}
+                            aria-hidden="true"
                             className={`cv-item-icon ${cv.id === 'data-bi' ? 'data-bi-color' : ''}`}
                           />
                           <div className="cv-item-info">
                             <span className="cv-item-title">{cv.role[lang]}</span>
                             <span className="cv-item-format">PDF · {cv.category}</span>
                           </div>
-                          <ArrowUpRightIcon size={14} className="cv-item-arrow" />
+                          <ArrowUpRightIcon size={14} aria-hidden="true" className="cv-item-arrow" />
                         </a>
                       ))}
                     </div>
@@ -238,7 +245,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
-                aria-label={`${social.name} (opens in a new tab)`}
+                aria-label={
+                  lang === 'id'
+                    ? `${social.name} (buka di tab baru)`
+                    : `${social.name} (opens in a new tab)`
+                }
                 title={social.name}
               >
                 {renderSocialIcon(social.icon)}
@@ -273,14 +284,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange
 
           <div className="avatar-modal-body">
             <img
-              src={PERSONAL_INFO.avatarUrl}
-              alt={PERSONAL_INFO.name}
+              src={PERSONAL_INFO.avatarLargeUrl}
+              alt={`${PERSONAL_INFO.name} — ${PERSONAL_INFO.title[lang]}`}
+              width={440}
+              height={440}
+              loading="lazy"
+              fetchPriority="low"
+              decoding="async"
               className="avatar-modal-img"
             />
           </div>
 
           <div className="avatar-modal-footer">
-            <h3 className="avatar-modal-name">{PERSONAL_INFO.name}</h3>
+            <p className="avatar-modal-name">{PERSONAL_INFO.name}</p>
             <p className="avatar-modal-role">{PERSONAL_INFO.title[lang]}</p>
           </div>
         </div>
