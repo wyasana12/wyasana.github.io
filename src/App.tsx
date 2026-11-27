@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import type { Language } from './data/portfolioData';
 import { SEO_META } from './data/portfolioData';
 import type { ThemeMode } from './components/Topbar';
@@ -11,26 +11,44 @@ import { ExperienceSection } from './components/ExperienceSection';
 import { ProjectsSection } from './components/ProjectsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { LoadingScreen } from './components/LoadingScreen';
+
+const PREFS_EVENT = 'portfolio-prefs-change';
+
+function subscribePrefs(callback: () => void) {
+  window.addEventListener('storage', callback);
+  window.addEventListener(PREFS_EVENT, callback);
+  return () => {
+    window.removeEventListener('storage', callback);
+    window.removeEventListener(PREFS_EVENT, callback);
+  };
+}
+
+function getLangSnapshot(): Language {
+  try {
+    const saved = localStorage.getItem('portfolio_lang');
+    return saved === 'en' || saved === 'id' ? saved : 'id';
+  } catch {
+    return 'id';
+  }
+}
+
+function getThemeSnapshot(): ThemeMode {
+  try {
+    const saved = localStorage.getItem('portfolio_theme');
+    return saved === 'light' || saved === 'dark' || saved === 'system' ? saved : 'system';
+  } catch {
+    return 'system';
+  }
+}
 
 export function App() {
-  // Default mode: System dan Indonesia
-  const [lang, setLang] = useState<Language>(() => {
-    const saved = localStorage.getItem('portfolio_lang');
-    return (saved === 'en' || saved === 'id') ? saved : 'id';
-  });
-
-  const [theme, setTheme] = useState<ThemeMode>(() => {
-    const saved = localStorage.getItem('portfolio_theme');
-    return (saved === 'light' || saved === 'dark' || saved === 'system') ? saved : 'system';
-  });
-
+  // Hydration-safe preferences synced with localStorage via useSyncExternalStore
+  const lang = useSyncExternalStore(subscribePrefs, getLangSnapshot, () => 'id' as const);
+  const theme = useSyncExternalStore(subscribePrefs, getThemeSnapshot, () => 'system' as const);
   const [activeSection, setActiveSection] = useState<string>('about');
 
   // Handle Theme Mode (System / Dark / Light)
   useEffect(() => {
-    localStorage.setItem('portfolio_theme', theme);
-
     const applyTheme = () => {
       let resolvedTheme: 'dark' | 'light' = 'dark';
       if (theme === 'system') {
@@ -63,10 +81,23 @@ export function App() {
     }
   }, [lang]);
 
-  // Handle Language
+  // Handle Language & Theme updates
   const handleLanguageChange = (newLang: Language) => {
-    setLang(newLang);
-    localStorage.setItem('portfolio_lang', newLang);
+    try {
+      localStorage.setItem('portfolio_lang', newLang);
+    } catch {
+      // Ignore storage errors
+    }
+    window.dispatchEvent(new Event(PREFS_EVENT));
+  };
+
+  const handleThemeChange = (newTheme: ThemeMode) => {
+    try {
+      localStorage.setItem('portfolio_theme', newTheme);
+    } catch {
+      // Ignore storage errors
+    }
+    window.dispatchEvent(new Event(PREFS_EVENT));
   };
 
   // Scrollspy tracking: about, skills, experience, projects, contact (rAF-throttled)
@@ -117,12 +148,11 @@ export function App() {
       <a href="#content" className="skip-to-content visually-hidden">
         {lang === 'id' ? 'Langsung ke konten utama' : 'Skip to main content'}
       </a>
-      <LoadingScreen />
       <Topbar
         lang={lang}
         onLanguageChange={handleLanguageChange}
         theme={theme}
-        onThemeChange={setTheme}
+        onThemeChange={handleThemeChange}
       />
       <Spotlight />
       <div className="portfolio-container">

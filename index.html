@@ -222,42 +222,21 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
     />
   </noscript>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('portfolio_theme') || 'system';
+        var r = t === 'system'
+          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+          : t;
+        document.documentElement.setAttribute('data-theme', r);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>
   <div id="root"></div>
-
-  <noscript>
-    <main style="max-width:800px;margin:2rem auto;padding:1.5rem;font-family:system-ui,sans-serif;color:#F3F4F6;background:#090E1A;line-height:1.6;">
-      <h1>Wyasana Aji Kusuma Wardana</h1>
-      <p><strong>Backend Developer, Data Engineer, &amp; Business Intelligence (BI) Analyst</strong> — Datasea.</p>
-      <p>Lulusan D3 Teknik Informatika Universitas Sebelas Maret (UNS) yang berfokus pada pengembangan sistem backend (Golang, ASP.NET, Laravel, REST API, SQL/NoSQL), rekayasa pipa data &amp; Data Warehousing (Snowflake, ETL/ELT, Dimensional Modeling), serta analitik Business Intelligence (Power BI, DAX, Power Query).</p>
-      <h2>Pengalaman</h2>
-      <ul>
-        <li>Data Engineer &amp; Business Intelligence Analyst (Intern to Contract) — Datasea (Global Logistics Kraft Heinz, EMEA/LATAM/ANZ)</li>
-        <li>Backend Developer (Intern) — Datasea (Sistem E-Procurement Arya Noble &amp; 7 Events terintegrasi SAP)</li>
-        <li>Web Developer (Contract) — Neo Edukasi</li>
-        <li>Web Developer (Intern) — PT Edukarir Global Nusantara</li>
-        <li>Backend Developer (Intern) — Diskominfo Kabupaten Karanganyar (SiLaNyar DLH)</li>
-      </ul>
-      <h2>Proyek Utama</h2>
-      <ul>
-        <li><a href="https://github.com/wyasana12/stoq_slab">StoQ — Inventory &amp; Warehouse Management System (Laravel 12, MySQL, Redis)</a></li>
-        <li><a href="https://github.com/wyasana12/to-do-with-golang">Task Management &amp; File Attachment RESTful API (Golang, MySQL, Swagger UI)</a></li>
-        <li><a href="https://github.com/wyasana12/blog-with-golang">Multi-Role Publishing Platform API (Golang, Echo, PostgreSQL, JWT)</a></li>
-        <li><a href="https://github.com/wyasana12/kelolaBidanDian">Sistem Informasi Reservasi &amp; Janji Temu — PMB Dyah Sumarmo (Laravel 10, MySQL)</a></li>
-      </ul>
-      <h2>CV &amp; Tautan</h2>
-      <ul>
-        <li><a href="./CV_Backend%20Developer_Wyasana%20Aji%20Kusuma%20Wardana.pdf">CV — Backend Developer (PDF)</a></li>
-        <li><a href="./CV_Data%20engineer%20&amp;%20Bussiness%20Intelligence_Wyasana%20Aji%20Kusuma%20Wardana.pdf">CV — Data Engineer &amp; BI Analyst (PDF)</a></li>
-        <li><a href="https://github.com/wyasana12">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/wyasana12/">LinkedIn</a></li>
-        <li><a href="https://www.instagram.com/wysnaa_/">Instagram</a></li>
-      </ul>
-    </main>
-  </noscript>
-
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
