@@ -4,21 +4,14 @@
   <url>
     <loc>https://wyasana.xyz/</loc>
     <lastmod>2026-11-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
     <image:image>
       <image:loc>https://wyasana.xyz/og-image.jpg</image:loc>
-      <image:title>Wyasana Aji Kusuma Wardana — Portfolio</image:title>
-      <image:caption>Portofolio Wyasana Aji Kusuma Wardana — Backend Developer, Data Engineer, &amp; Business Intelligence Analyst</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://wyasana.xyz/avatar.jpg</image:loc>
-      <image:title>Wyasana Aji Kusuma Wardana</image:title>
-      <image:caption>Foto profil Wyasana Aji Kusuma Wardana — Backend Developer, Data Engineer, &amp; Business Intelligence Analyst</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://wyasana.xyz/logo.png</image:loc>
-      <image:title>Logo Wyasana Aji Kusuma Wardana</image:title>
     </image:image>
   </url>
 </urlset>
